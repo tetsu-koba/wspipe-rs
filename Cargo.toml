@@ -1,0 +1,7 @@
+[package]
+name = "wspipe"
+version = "0.1.0"
+authors = ["Tetsuyuki Kobayashi <tetsu.koba@gmail.com>"]
+
+[dependencies]
+ws = "*"
