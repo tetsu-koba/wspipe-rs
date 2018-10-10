@@ -29,14 +29,14 @@ fn msg_handler(_msg: ws::Message) -> ws::Result<()> {
 }
 
 pub fn stdin2websocket(url: &str) {
-    let (sender, receiver) = channel::<u32>();
+    let (sender, receiver) = channel();
     if let Err(error) = connect(url, |out| {
         let s2 = sender.clone();
         thread::spawn(move || {
             send_binary(&out);
             thread::sleep(time::Duration::from_millis(100));
             out.close(CloseCode::Normal).unwrap();
-            s2.send(1).unwrap();
+            s2.send(()).unwrap();
         });
 
         msg_handler
@@ -44,7 +44,7 @@ pub fn stdin2websocket(url: &str) {
     {
         println!("Failed to create WebSocket due to: {:?}", error);
     }
-    receiver.recv().unwrap();
+    let _done = receiver.recv().unwrap();
 }
 
 pub fn websocket2stdout(socaddr: &str) {
