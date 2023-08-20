@@ -1,7 +1,7 @@
-use ws::{connect, CloseCode};
-use std::{thread, time};
-use std::sync::mpsc::channel;
 use std::io::{Read, Write};
+use std::sync::mpsc::channel;
+use std::{thread, time};
+use ws::{connect, CloseCode};
 
 fn send_binary(out: &ws::Sender) {
     let stdin = std::io::stdin();
@@ -38,8 +38,7 @@ pub fn stdin2websocket(url: &str) {
         });
 
         msg_handler
-    })
-    {
+    }) {
         println!("Failed to create WebSocket due to: {:?}", error);
     }
     receiver.recv().unwrap();
@@ -50,7 +49,7 @@ pub fn websocket2stdout(socaddr: &str) {
         move |msg| {
             let stdout = std::io::stdout();
             let mut out = stdout.lock();
-            use ws::Message::{Text, Binary};
+            use ws::Message::{Binary, Text};
             match msg {
                 Text(str) => write!(out, "{}", str),
                 Binary(d) => out.write_all(&d),
@@ -58,8 +57,7 @@ pub fn websocket2stdout(socaddr: &str) {
             out.flush()?;
             Ok(())
         }
-    })
-    {
+    }) {
         eprintln!("Failed to create WebSocket due to {:?}", error);
     }
 }
