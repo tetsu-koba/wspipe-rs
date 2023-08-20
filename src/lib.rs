@@ -44,7 +44,7 @@ pub fn stdin2websocket(url: &str) {
     {
         println!("Failed to create WebSocket due to: {:?}", error);
     }
-    let _done = receiver.recv().unwrap();
+    receiver.recv().unwrap();
 }
 
 pub fn websocket2stdout(socaddr: &str) {
