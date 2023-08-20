@@ -5,4 +5,4 @@ authors = ["Tetsuyuki Kobayashi <tetsu.koba@gmail.com>"]
 edition = "2021"
 
 [dependencies]
-ws = "*"
+ws = "0.9"

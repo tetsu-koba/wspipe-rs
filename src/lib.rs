@@ -1,5 +1,3 @@
-extern crate ws;
-
 use ws::{connect, CloseCode};
 use std::{thread, time};
 use std::sync::mpsc::channel;
